@@ -24,7 +24,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true,
-        unique: true
+        unique: true,
+        validate: [
+            (email) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
+            'Email type is not correct.'
+        ]
+
     },
     isActive: {
         type: Boolean,
@@ -39,3 +44,6 @@ const UserSchema = new mongoose.Schema({
     collection: 'users',
     timestamps: true
 })
+
+//model
+module.exports = mongoose.model('User', UserSchema)
